@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Bootstrap 101 Template</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <a id="os-brand" href="#">OptumSoft</a>
+      <a class="myWebsite"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span></a>
+      <ul class="nav navbar-nav navbar-right">
+        <li id="cpuId"><a>CPU Utilization</a></li>
+        <li id="memoryId"><a>Memory Usage</a></li>
+      </ul>
+    </div>
+    </div>
+  </nav>
+  <div class="container" id="mainContainer">
+    <div class="row" id="main">
+      <div class="col-sm-12 col-md-5 card">
+        <div style="width:100%; height:300px;">
+          <canvas id="memoryChart" width="500" height="300"></canvas>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-2"></div>
+      <div class="col-sm-12 col-md-5 card">
+        <div id="bak" style="width: 100%; height:300px;">
+          <canvas id="cpuChart" width="500" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+
+  <script>
+    var ctx = document.getElementById("cpuChart").getContext("2d");
+    var cpuChartData = {
+      labels: [],
+      datasets: [{
+        label: 'CPU Usage',
+        data: [],
+        // backgroundColor: '#ffb1cc',
+        backgroundColor: '#4bc0c0',
+        borderColor: '#36a2eb'
+      }]
+    };
+
+    var myCPUChart = new Chart(ctx, {
+      type: 'line',
+      data: cpuChartData,
+      options: {
+        legend: {
+          labels: {
+            fontColor: '#000',
+          }
+        },
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: '#000'
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: '#000'
+            }
+          }]
+        }
+      }
+    });
+  </script>
+  <script>
+    var ctx = document.getElementById("memoryChart").getContext("2d");
+    var memoryChartData = {
+      labels: [],
+      datasets: [{
+        label: 'Memory Usage',
+        data: [],
+        backgroundColor: '#ffe699',
+        borderColor: '#ffd267'
+      }]
+    };
+
+    var myMemoryChart = new Chart(ctx, {
+      type: 'line',
+      data: memoryChartData,
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              fontColor: '#000'
+            }
+          }],
+          xAxes: [{
+            ticks: {
+              fontColor: '#000'
+            }
+          }]
+        }
+      }
+    });
+  </script>
+  <script>
+    var socket = io('http://192.168.0.5:3001');
+    socket.on('serverData', function (serverData) {
+      var dateOb = new Date(serverData.name);
+      dataOb = dateOb.toLocaleTimeString({ minute: '2-digit', second: '2-digit' });
+      cpuChartData.labels.push(dataOb);
+      let serverDataArr = cpuChartData.datasets[0].data;
+      serverDataArr.push(serverData.cpuData);
+      if (serverDataArr.length > 11) {
+        serverDataArr.splice(0, 1);
+        cpuChartData.labels.splice(0, 1);
+      }
+      cpuChartData.datasets[0].data = serverDataArr;
+      myCPUChart.update();
+      //
+      memoryChartData.labels.push(dataOb);
+      let memDataArr = memoryChartData.datasets[0].data;
+      memDataArr.push(serverData.memoryData);
+      if (memDataArr.length > 11) {
+        memDataArr.splice(0, 1);
+        memoryChartData.labels.splice(0, 1);
+      }
+      memoryChartData.datasets[0].data = memDataArr;
+      myMemoryChart.update();
+    });
+  </script>
+
+  <script>
+    $('#memoryId').on('hover', function () {
+      $('#bak').style.width = 600;
+    });
+  </script>
+</body>
+
+</html>

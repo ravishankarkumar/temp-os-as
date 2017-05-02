@@ -1,0 +1,65 @@
+body{
+  background-color: #000;
+}
+
+#main{
+  position: relative;
+  top: 80px;
+  text-align: center;
+  background-color: #000;
+}
+
+.navbar{
+  transition: all 0.3s ease-in-out;
+  height: 90px;
+  vertical-align: middle;
+  background-color: #fff;
+  line-height: 90px;
+  text-align: center;
+  border-radius: 0;
+}
+
+#os-brand{
+  font-size: 28px;
+  line-height: 90px;
+  float: left !important;
+  letter-spacing: 6px;
+  font-weight: 900;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.myWebsite span::before{
+  position: relative;
+  top: 12px;
+  font-size: 38px;
+  color: #000;
+}
+.navbar .container{
+  height: 100%;
+  position: relative;
+  border-radius: 0;
+}
+
+.navbar-default .navbar-right li a{
+  padding: 0 8px;
+  line-height: 90px;
+  color: #000;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+.navbar:hover{
+  transform: translateY(2%);
+}
+
+#mainContainer #main{
+  text-align: center;
+}
+.card{
+  background-color: #fff;
+  overflow: hidden;
+  margin: 0;
+  box-shadow: 5px 5px 1px #ddd;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "optumsoft-assignment",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./app"
+  },
+  "dependencies": {
+    "express": "~4.14.1",
+    "shelljs": "^0.7.7",
+    "socket.io": "^1.7.3"
+  },
+  "description": "Assignment for optumsoft",
+  "main": "app.js",
+  "devDependencies": {},
+  "author": "Ravi Shankar",
+  "license": "ISC"
+}
