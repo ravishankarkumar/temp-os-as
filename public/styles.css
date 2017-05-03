@@ -27,6 +27,11 @@ body{
   font-weight: 900;
   color: #000;
   text-transform: uppercase;
+  text-decoration: none;
+}
+
+#os-brand::hover{
+  cursor: pointer;
 }
 
 .myWebsite span::before{
@@ -35,6 +40,9 @@ body{
   font-size: 38px;
   color: #000;
 }
+.myWebsite{
+  cursor: pointer;
+} 
 .navbar .container{
   height: 100%;
   position: relative;
@@ -48,6 +56,7 @@ body{
   text-transform: uppercase;
   font-size: 16px;
   letter-spacing: 2px;
+  cursor: pointer;
 }
 
 .navbar:hover{
@@ -61,5 +70,44 @@ body{
   background-color: #fff;
   overflow: hidden;
   margin: 0;
-  box-shadow: 5px 5px 1px #ddd;
+  transition: all 0.7s ease-in-out;
+  box-shadow: 5px 5px 1px #25cb50;
+}
+.card:hover{
+  box-shadow: 5px 5px 1px #fff;
+}
+
+#infoContainer{
+  border: none;
+  border-radius: 0;
+  color: #333;
+  height: 48px;
+  font-weight: 500;
+  line-height: 46px;
+  padding: 0;
+  text-align: center;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+#infoContainer .row{
+  padding: 0;
+  margin: 0;
+}
+
+#infoContainer .row p{
+  padding: 0;
+  margin: 0;
+  font-size: 28px;
+}
+
+.navbar-default{
+  z-index: 10;
+}
+.infoContainerClass{
+  transform: translateY(-135%);
+  z-index: 5;
+}
+.infoContainerShown{
+  transform: translateY(0%);
 }

@@ -36,13 +36,13 @@ io.on('connection', function (socket) {
 setInterval(() => {
   let memoryInformation = memInfo();
   let memoryDataSet = (memoryInformation.MemTotal - memoryInformation.MemFree) / (1024 * 1024);
-  memoryData = (Math.random() + 1) * memoryDataSet;
+  memoryData = memoryDataSet;
 }, 3000);
 
 setInterval(() => {
   execFile(`sh`, [`./scripts/cpu.sh`], (error, stdout, stderr) => {
     // console.log(stdout);
-    cpuData = (Math.random() + 1) * stdout;
+    cpuData = stdout;
   });
 }, 3000);
 
