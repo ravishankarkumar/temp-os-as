@@ -9,7 +9,6 @@ var io = require('socket.io')(http);
 //
 
 let memInfo = require('./lib/memWrap').memInfo;
-// let getCPUUsage = require('./lib/cpuStat').getCPUUsage;
 let cpuData = 0;
 let memoryData = 0;
 
