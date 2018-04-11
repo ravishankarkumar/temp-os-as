@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('commit-stage') {
       steps {
-        build 'myJob'
+        build(job: 'ghch', propagate: true, wait: true)
       }
     }
   }
